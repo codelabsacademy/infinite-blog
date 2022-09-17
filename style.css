@@ -18,7 +18,7 @@ body {
   text-align: center;
   gap: 2rem;
 }
-.container > input {
+.container > input { 
   padding: .3rem 1rem;
   width: 50%;
   text-align:left;
@@ -26,9 +26,19 @@ body {
   border: none;
   border-radius: 6px;
 }
+#posts-container{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 .post{
   background-color: rgba(115, 115, 115, 0.9) ;
   border-radius: 15px;
+  width:80%;
+  padding: 6px 28px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
 }
 
 .post > p {
@@ -54,3 +64,6 @@ body {
       transform: rotate(360deg);
   }
   } 
+  .hidden{
+    display: none;
+  }
