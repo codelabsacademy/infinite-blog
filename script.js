@@ -1,29 +1,34 @@
 let skip=0;
 let limit=5;
 
-link = `https://dummyjson.com/posts?skip=${skip}&limit=${limit}` 
-
 const fetchPosts = async () => {
-    const res = await fetch(link)
+    const res = await fetch(`https://dummyjson.com/posts?skip=${skip}&limit=${limit}` )
     const posts = await res.json()
     console.log(posts.posts)
     return posts.posts
   }
-  const postsContainre = document.getElementById('posts-container')
+  const postsContainer = document.getElementById('posts-container')
+  const loader = document.getElementById('loader')
   
   const renderPosts = async () => {
-    const fetchedPostes = await fetchPosts()
-    console.log(fetchedPostes)
-    fetchedPostes.forEach(post => {
-    const newDiv = document.createElement('div')
-    newDiv.innerHTML=
+    const fetchedPosts = await fetchPosts()
+    console.log(fetchedPosts)
+    fetchedPosts.forEach(post => {
+      const newDiv = document.createElement('div')
+      newDiv.innerHTML=
       `<div class="post">
-        <h3>${post.title} </h3>
-        <p>${post.body}</p>
-      </div>`
-    postsContainre.appendChild(newDiv)
-    
-  });
+        <div>
+          <h5>${post.id}</h5>
+        </div>
+        <div>
+            <h3>${post.title}</h2>
+            <p>${post.body}</p>
+        </div>
+      </div>
+    `
+      postsContainer.appendChild(newDiv);
+      loader.classList.add('hidden');
+    });
   }
   renderPosts()
 
@@ -31,6 +36,7 @@ const fetchPosts = async () => {
     const {scrollTop,clientHeight,scrollHeight} = document.documentElement;
     if ((scrollTop+clientHeight)===scrollHeight) {
       skip += 5;
+      loader.classList.remove('hidden');
       renderPosts()
     }
   });
